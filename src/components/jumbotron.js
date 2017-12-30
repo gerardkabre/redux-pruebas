@@ -1,22 +1,47 @@
 import React from "react";
 import { connect } from "react-redux";
 import setTerm from "../actions";
+import {
+  Button,
+  ButtonGroup,
+  SettingToggle,
+  TextStyle,
+  Layout,
+  Card,
+  TextField,
+  DescriptionList
+} from "@shopify/polaris";
 
 let Jumbotron = props => (
-  <div
-    className="Jumbotron"
-    style={{ backgroundColor: "grey", color: "black" }}
-  >
-    <h1>
-      Write on that input and you are goning to modify the redux state directly.
-    </h1>
-    <h2>
-      At the same time the redux store value is going to be rendered under the
-      input.
-    </h2>
-    <input onChange={props.eventHandler} value={props.term} />
-
+  <div className="Jumbotron">
     <h2>{props.term}</h2>
+    <TextField
+      label="Account email"
+      type="email"
+      helpText="We’ll use this address if we need to contact you about your account."
+      value={props.term}
+      onChange={props.handleChange}
+      autoComplete={true}
+    />
+    <DescriptionList
+      items={[
+        {
+          term: "Logistics",
+          description:
+            "The management of products or other resources as they travel between a point of origin and a destination."
+        },
+        {
+          term: "Sole proprietorship",
+          description:
+            "A business structure where a single individual both owns and runs the company."
+        },
+        {
+          term: "Discount code",
+          description:
+            "A series of numbers and/or letters that an online shopper may enter at checkout to get a discount or special offer."
+        }
+      ]}
+    />
   </div>
 );
 
@@ -26,8 +51,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    eventHandler(event) {
-      dispatch(setTerm(event.target.value));
+    handleChange(newValue, id) {
+      dispatch(setTerm(newValue));
     }
   };
 }
